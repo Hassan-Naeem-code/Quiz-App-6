@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 type Props ={
     questions : string;
@@ -8,24 +8,30 @@ type Props ={
     questionNumber : number;
     totalQuestions : number;
 }
-const QuestionCard= () => {
+const QuestionCard: React.FC<Props> = ({
+    questions,
+    answers,
+    callback,
+    userAnswer,
+    questionNumber,
+    totalQuestions,
+  }) => {
     return (
         <div>
-           <p>Question
-               {/* Questions: {questionNumber} / {totalQuestions} */}
+           <p>Questions: {questionNumber} / {totalQuestions}
            </p>
-           {/* <p dangerouslySetInnerHTML={{_html: questions}} />
+           <p dangerouslySetInnerHTML={{__html: questions}} />
            <div>
                {answers.map((item,index)=>{
                    return(
                        <div key={index}>
                            <button onClick={callback} disabled={userAnswer}>
-                               <span dangerouslySetInnerHTML={{_html: item}} />
+                               <span dangerouslySetInnerHTML={{__html: item}} />
                            </button>
                        </div>
                    )
                })}
-           </div> */}
+           </div>
         </div>
     )
 }
