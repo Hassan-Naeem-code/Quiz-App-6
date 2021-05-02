@@ -28,8 +28,29 @@ function App() {
     setNumber(0);
     setLoading(false);
   };
-  const nextQuestion =async()=>{};
-  const checkAnswer = (e: React.MouseEvent<HTMLButtonElement>) =>{};
+  const nextQuestion =async()=>{
+    const nextQuestion = number + 1;
+    if(nextQuestion === TOTAL_QUESTIONS){
+      setGameOver(true);
+    } 
+    else{
+      setNumber(nextQuestion);
+    }
+  };
+  const checkAnswer = (e: React.MouseEvent<HTMLButtonElement>) =>{
+    if(!gameOver){
+      const answer = e.currentTarget.value;
+      const correct = question[number].correct_answer === answer;
+      if(correct) setScore(prev=>prev + 1);
+      const answerObject = {
+        question: question[number].question,
+        answer,
+        correct,
+        correctAnswer : question[number].correct_answer
+      }
+      setUserAnswers(prev=>[...prev,answerObject]);
+    }
+  };
   console.log('Data hhg',question);
   return (
     <div className="App">
@@ -42,7 +63,7 @@ function App() {
       }
       {
         !gameOver ?  (
-          <p className="score">Score:</p>
+          <p className="score">Score: {score} </p>
         ) : null
       }
       {
