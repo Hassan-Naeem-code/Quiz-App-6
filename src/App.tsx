@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import QuestionCard from './components/QuestionCard';
 import {fetchQuestions , Difficulty, QuestionState} from './API';
+import {GlobalStyle,Wrapper} from './App.styles';
 
 const TOTAL_QUESTIONS = 10;
 type AnswerObject = {
@@ -53,42 +54,45 @@ function App() {
   };
   console.log('Data hhg',question);
   return (
-    <div className="App">
-      <h1>Quiz</h1>
-      {
-        gameOver || userAnswers.length == TOTAL_QUESTIONS ? (
+    <>
+    <GlobalStyle />
+      <Wrapper>
+              <h1>Quiz</h1>
+              {
+                gameOver || userAnswers.length == TOTAL_QUESTIONS ? (
 
-          <button className="start" onClick={startQuiz}>Begin Quiz</button>
-        ) : null
-      }
-      {
-        !gameOver ?  (
-          <p className="score">Score: {score} </p>
-        ) : null
-      }
-      {
-        loading ? (
-          <p>Loading</p>
-        ) : null
-      }
-      {
-        !loading && !gameOver ? (
-<QuestionCard 
-       questionNumber = {number + 1}
-       totalQuestions = {TOTAL_QUESTIONS}
-       questions = {question[number].question}
-       answers = {question[number].answers}
-       userAnswer ={userAnswers ? userAnswers[number] : undefined}
-       callback = {checkAnswer}
-      />
-        ) : null
-      }
-      {
-        !gameOver && !loading && userAnswers.length === number + 1 && number !== TOTAL_QUESTIONS - 1 ? (
-          <button onClick={nextQuestion} className="next">Next</button>
-        ) : null
-      }
-    </div>
+                  <button className="start" onClick={startQuiz}>Begin Quiz</button>
+                ) : null
+              }
+              {
+                !gameOver ?  (
+                  <p className="score">Score: {score} </p>
+                ) : null
+              }
+              {
+                loading ? (
+                  <p>Loading</p>
+                ) : null
+              }
+              {
+                !loading && !gameOver ? (
+        <QuestionCard 
+              questionNumber = {number + 1}
+              totalQuestions = {TOTAL_QUESTIONS}
+              questions = {question[number].question}
+              answers = {question[number].answers}
+              userAnswer ={userAnswers ? userAnswers[number] : undefined}
+              callback = {checkAnswer}
+              />
+                ) : null
+              }
+              {
+                !gameOver && !loading && userAnswers.length === number + 1 && number !== TOTAL_QUESTIONS - 1 ? (
+                  <button onClick={nextQuestion} className="next">Next</button>
+                ) : null
+              }
+      </Wrapper>
+    </>
   );
 }
 
